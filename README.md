@@ -1,12 +1,16 @@
 # Store Checkout
 
-[Live checkout](https://fynd-r1.web.app/) · [Test plan](TEST_PLAN.md) · [Execution results](TEST_RESULTS.md) · [Edge recording](evidence/manual/checkout.webm)
+**Live site** · <https://fynd-r1.web.app/>
 
-A single-page React and TypeScript checkout for two stationery products: Notebook (₹499) and Desk Organiser (₹299). Customers can adjust quantities on either the product card or the cart, review the total and place an order with a customer name. The receipt shows the reference, customer, quantities and total. Refreshing the page starts a new cart.
+A single-page checkout built with React and TypeScript. Adjust quantities for a Notebook (₹499) or Desk Organiser (₹299), enter a customer name and place the order. The receipt shows the reference, customer, quantities and total. Refreshing starts a new cart.
+
+![Store Checkout with three Notebooks in the cart and an order total of ₹1,497](evidence/automation/AT-03.png)
 
 ## Run locally
 
-Install Git and Node.js 22.x (22.12 or later) with npm. The recorded Windows run used Node.js 22.17.1 and npm 10.9.2. Clone the repository and install the versions in the lockfile:
+**Prerequisites** · Git, Node.js 22.x (22.12 or later), and npm. The recorded Windows run used Node.js 22.17.1 and npm 10.9.2.
+
+### Start the development server
 
 ```sh
 git clone https://github.com/yashgadge/fynd.git checkout-app
@@ -15,7 +19,9 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. To check the code and preview a production build:
+Open the local URL printed by Vite.
+
+### Preview a production build
 
 ```sh
 npm run lint
@@ -39,15 +45,15 @@ Leave port 4173 free for the test runner. It builds the application, starts a pr
 
 Rerunning the suite replaces the AT-01 through AT-03 screenshots in `evidence/automation/`. Playwright writes the HTML report to `playwright-report/` and failure traces and screenshots to `test-results/`. The execution record links the saved report capture, Edge screenshots and recording. See the [checkout test plan](TEST_PLAN.md) and [test execution results](TEST_RESULTS.md).
 
-### Verified coverage
+### Test results · 23 November 2026
 
-| Cases | What was checked | Recorded result, 23 November 2026 |
+| Environment | Coverage | Result |
 |---|---|---|
-| AT-01 and AT-02 | A valid order produces one receipt. Blank and whitespace-only names show an error and preserve the cart. | Both passed in Chromium. |
-| AT-03 and AT-04 | Quantity changes produce exact totals. A rapid double-click at 320px produces a single reference. | Both passed in Chromium. |
-| MT-01 and MT-02 | Empty-cart submission retains the name. A rapid double-click on a valid order produces one receipt. | Both passed in manual testing in Microsoft Edge. |
+| Chromium · local preview | Receipt, required name, exact totals and rapid double-click at 320px | 4 passed in 9.9s |
+| Chromium · live site | Same four automated cases against the deployed build | 4 passed in 8.7s |
+| Microsoft Edge · manual | Empty-cart validation and rapid double-click | 2 passed |
 
-The full automated suite passed in 9.9 seconds against the local preview and 8.7 seconds against the deployed site. [Local report](evidence/automation/report.png) · [Exact-total screenshot](evidence/automation/AT-03.png) · [Manual evidence](TEST_RESULTS.md#manual-test-cases)
+[Playwright report](evidence/automation/report.png) · [Manual test results](TEST_RESULTS.md#manual-test-cases) · [Edge recording](evidence/manual/checkout.webm)
 
 ## Checkout rules
 
@@ -60,7 +66,20 @@ The full automated suite passed in 9.9 seconds against the local preview and 8.7
 
 Serve the production build at the site root over HTTPS, or use localhost for development. The reference uses `crypto.randomUUID()`. Checkout has no backend, payment integration or persistent order history. Totals include product prices only.
 
-Firebase Hosting serves `dist/` using the repository's `firebase.json`. To publish a new version with an authorized Firebase account, run `npm run build` followed by `npx --package firebase-tools firebase deploy --only hosting --project fynd-r1`. To test the deployment, set `BASE_URL` to its HTTPS URL before running Playwright. Unset it to return to the local preview. [Live checkout](https://fynd-r1.web.app/)
+Firebase Hosting serves `dist/` using the repository's `firebase.json`. To publish a new version with an authorized Firebase account:
+
+```sh
+npm run build
+npx --package firebase-tools firebase deploy --only hosting --project fynd-r1
+```
+
+To run Playwright against the live site from PowerShell:
+
+```powershell
+$env:BASE_URL = 'https://fynd-r1.web.app/'
+npx playwright test
+Remove-Item Env:BASE_URL
+```
 
 ## Third-party notices
 
