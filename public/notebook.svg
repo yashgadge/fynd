@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270"><defs><filter id="shadow" x="-40%" y="-40%" width="200%" height="210%"><feGaussianBlur stdDeviation="6"/></filter><pattern id="linen" width="3" height="3" patternUnits="userSpaceOnUse"><path d="M0 0h3M0 0v3" fill="none" stroke="#eee5fb" opacity=".12" stroke-width=".6"/></pattern><pattern id="grain" width="80" height="15" patternUnits="userSpaceOnUse"><path d="M-5 5q15-4 30 0t65-2M0 12q25-4 50-1t34 0" stroke="#7a512e" opacity=".32" fill="none" stroke-width="1"/></pattern></defs>
+<g transform="translate(82 32) rotate(-15 92 100) skewY(4)">
+<rect x="10" y="16" width="162" height="186" rx="9" fill="#392b4f" opacity=".31" filter="url(#shadow)"/>
+<rect x="0" y="7" width="163" height="190" rx="8" fill="#443957"/>
+<rect x="4" y="9" width="156" height="184" rx="6" fill="#f4e8ce"/>
+<path d="M10 188h145m-145 2h145" stroke="#ccbea8"/>
+<path d="M112 183v22l6-4 5 4v-22" fill="#a57d46"/>
+<rect width="161" height="186" rx="7" fill="#625481"/><rect width="161" height="186" rx="7" fill="url(#linen)"/>
+<path d="M10 1v183" stroke="#322943" opacity=".35"/><path d="M13 1v183" stroke="#b2a5c3" opacity=".35"/>
+<rect x="133" width="8" height="189" rx="1" fill="#40354f"/><path d="M135 0v187" stroke="#83768d"/>
+<g fill="#f1dcac" text-anchor="middle" font-family="Georgia,serif"><text x="76" y="74" font-size="14" letter-spacing="2">NOTES</text><path d="M50 83h52" stroke="#d3bf95"/><text x="76" y="97" font-size="6" letter-spacing="1.4">RULED · A5</text></g></g>
+<g transform="translate(256 82) rotate(18)"><path d="M3 4h8v124l-4 15-4-15z" fill="#514052" filter="url(#shadow)" opacity=".35"/><path d="M0 0h8v119H0z" fill="#ba8b58"/><path d="M2 0h3v119H2z" fill="#f1c48d"/><path d="m0 119 4 16 4-16" fill="#e5c5a3"/><path d="m2.5 129 1.5 6 1.5-6" fill="#333"/><path d="M0 0h8v10H0z" fill="#4c4553"/></g></svg>

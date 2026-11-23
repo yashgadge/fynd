@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 270"><defs><filter id="shadow" x="-40%" y="-40%" width="200%" height="210%"><feGaussianBlur stdDeviation="6"/></filter><pattern id="linen" width="3" height="3" patternUnits="userSpaceOnUse"><path d="M0 0h3M0 0v3" fill="none" stroke="#eee5fb" opacity=".12" stroke-width=".6"/></pattern><pattern id="grain" width="80" height="15" patternUnits="userSpaceOnUse"><path d="M-5 5q15-4 30 0t65-2M0 12q25-4 50-1t34 0" stroke="#7a512e" opacity=".32" fill="none" stroke-width="1"/></pattern></defs>
+<path d="m53 174 147 68 118-66-138-39z" fill="#6c533b" filter="url(#shadow)" opacity=".32"/>
+<path d="m61 142 103-55 137 48-104 59z" fill="#d6ad7d"/>
+<path d="m70 142 95-48 125 42-94 52z" fill="#836144"/>
+<path d="m165 94 1 50 78 19 46-27z" fill="#9c7852"/>
+<g transform="rotate(-14 128 130)"><path d="M119 143V51l4-14 4 14v92" fill="#615875"/><path d="m119 51 4-14 4 14" fill="#e0bd93"/><path d="m122 41 1-4 1 4" fill="#39323b"/><path d="M122 52v89" stroke="#a093b5" stroke-width="2"/></g>
+<g transform="rotate(-4 142 130)"><path d="M137 140V37l4-13 4 13v103" fill="#be9564"/><path d="m137 37 4-13 4 13" fill="#ead1ac"/><path d="m140 28 1-4 1 4" fill="#463e38"/><path d="M139 38v100" stroke="#e5c08c" stroke-width="2"/></g>
+<g transform="rotate(8 161 125)"><rect x="155" y="43" width="8" height="98" rx="3" fill="#494b49"/><path d="M161 47h5v26" stroke="#b9b8ab" fill="none" stroke-width="2"/></g>
+<path d="m101 157 102-53 5 2-102 54z" fill="#ebcaa0"/><path d="m106 160 102-54v17l-101 54z" fill="#ae845d"/>
+<path d="m146 174 103-54 5 2-103 55z" fill="#edcba3"/><path d="m151 177 103-55v15l-100 56z" fill="#ac8057"/>
+<g fill="#e7dbc3" stroke="#b4a78e"><path d="m174 169 64-35 32 8-65 36z"/><path d="m174 166 64-35 32 8-65 36z"/><path d="m174 163 64-35 32 8-65 36z"/></g>
+<path d="m61 142 136 51v41L61 181z" fill="#d2a477"/><path d="m61 142 136 51v41L61 181z" fill="url(#grain)"/>
+<path d="m197 193 104-58v41l-104 58z" fill="#b3855f"/><path d="m197 193 104-58v41l-104 58z" fill="url(#grain)"/>
+<path d="m62 143 135 51 103-58" stroke="#ebc49b" stroke-width="3" fill="none"/></svg>

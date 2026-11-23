@@ -1,0 +1,63 @@
+import { expect, test } from '@playwright/test'
+
+test.beforeEach(async ({ page }) => {
+  await page.goto('/')
+  await expect(page.getByText('Your cart is empty')).toBeVisible()
+})
+
+test('AT-01 · One confirmation identifies the submitted order', async ({ page }) => {
+  await page.getByRole('button', { name: 'Add Notebook to cart' }).click()
+  await page.getByLabel('Customer Name').fill('Sample Rowan')
+  await page.getByRole('button', { name: 'Place Order' }).click()
+  const confirmation = page.getByRole('region', { name: 'Order confirmed' })
+  await expect(confirmation).toHaveCount(1)
+  await expect(confirmation.getByRole('heading')).toBeVisible()
+  await expect(confirmation.getByRole('code')).toHaveText(/\S+/)
+  await expect(confirmation.getByText('Notebook × 1')).toBeVisible()
+  await expect(confirmation.getByText('Sample Rowan')).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Place Order' })).toHaveCount(0)
+  await page.screenshot({ path: 'evidence/automation/AT-01.png', fullPage: true })
+})
+
+test('AT-02 · Blank and whitespace names preserve the cart', async ({ page }) => {
+  await page.getByRole('button', { name: 'Add Notebook to cart' }).click()
+  for (const input of ['', '   ']) {
+    await page.getByLabel('Customer Name').fill(input)
+    await page.getByRole('button', { name: 'Place Order' }).click()
+    await expect(page.getByRole('alert')).toHaveText('Enter a customer name.')
+    await expect(page.getByLabel('Customer Name')).toHaveValue(input)
+    await expect(page.getByRole('heading', { name: 'Order confirmed' })).toHaveCount(0)
+    const notebook = page.getByRole('listitem', { name: 'Notebook' })
+    await expect(notebook.getByLabel('Quantity', { exact: true })).toHaveText('1')
+    await expect(notebook.getByLabel('Line total')).toHaveText('₹499')
+    await expect(page.getByLabel('Order total')).toHaveText('₹499')
+  }
+  await page.screenshot({ path: 'evidence/automation/AT-02.png', fullPage: true })
+})
+
+test('AT-03 · Quantity and mixed cart totals are exact', async ({ page }) => {
+  await page.getByRole('button', { name: 'Add Notebook to cart' }).click()
+  const increase = page.getByRole('button', { name: 'Increase Notebook quantity' })
+  await increase.click()
+  await increase.click()
+  await expect(page.getByLabel('Line total')).toHaveText('₹1,497')
+  await expect(page.getByLabel('Order total')).toHaveText('₹1,497')
+  await page.screenshot({ path: 'evidence/automation/AT-03.png', fullPage: true })
+  await page.getByRole('button', { name: 'Add Desk Organiser to cart' }).click()
+  await expect(page.getByLabel('Order total')).toHaveText('₹1,796')
+  await page.getByRole('button', { name: 'Remove Notebook' }).click()
+  await page.getByRole('button', { name: 'Decrease Desk Organiser quantity' }).click()
+  await expect(page.getByText('Your cart is empty')).toBeVisible()
+  await expect(page.getByLabel('Order total')).toHaveText('₹0')
+})
+
+test('AT-04 · Small-screen checkout accepts a rapid double-click once', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 })
+  await page.getByRole('button', { name: 'Add Desk Organiser to cart' }).click()
+  await page.getByLabel('Customer Name').fill('Sample Sky')
+  await page.getByRole('button', { name: 'Place Order' }).dblclick()
+  await expect(page.getByRole('heading', { name: 'Order confirmed' })).toBeVisible()
+  await expect(page.getByRole('code')).toHaveCount(1)
+  await expect(page.getByRole('code')).toHaveText(/\S+/)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320)
+})
