@@ -1,38 +1,41 @@
-# Checkout test plan
+# Checkout Test Plan
 
-Verify that a customer can place exactly one local order with the intended items and amount, and can correct an invalid checkout without losing work.
+Verify that checkout calculates exact amounts, retains customer input after validation and produces one receipt per completed order.
 
-## Scope and assumptions
+## Scope and entry criteria
 
-Use synthetic names, the fixed catalogue and a fresh page. Prices include only product quantities. A receipt completes the page session. Browser storage, real purchases and server-side order handling are outside scope.
+Use the fixed catalogue and synthetic customer names. Install the locked dependencies and matching Playwright Chromium build. Lint and the production build must pass. Run automated cases against the production preview. For manual cases, open the development URL in Edge and refresh before each case. [Setup and test commands](README.md)
 
-## Risks and coverage
+## Risks
 
-| Priority | Risk | Cases |
+| Priority | Risk | Coverage |
 |---|---|---|
-| Critical | An incorrect line amount or grand total is confirmed | AT-01, AT-03, MT-02 |
-| Critical | Repeated input submits a completed order twice | AT-04, MT-02 |
-| High | Empty carts or missing names produce receipts | AT-02, MT-01 |
-| High | Validation discards quantities or customer input | AT-02, MT-01 |
-| Medium | Small screens hide controls or clip the receipt | AT-04, responsive inspection |
+| Critical | Incorrect quantities or amounts reach the receipt | AT-03, MT-02 |
+| Critical | Repeated submission creates two receipts | AT-01, AT-04, MT-02 |
+| High | An empty cart or blank name is accepted | AT-02, MT-01 |
+| High | Validation discards customer input or cart contents | AT-02, MT-01 |
+| Medium | The receipt overflows a small viewport | AT-04, responsive inspection |
 
-## Environments and entry criteria
+## Automated Browser Tests
 
-Install the lockfile and matching Playwright Chromium. Run lint and the production build. For automation, use the runner-managed local preview. For interactive checks, open the Vite development URL in a browser and refresh before each scenario.
+Each test starts in an isolated browser context with an empty cart.
 
-## Cases
-
-| ID | Action | Expected outcome |
+| ID | Steps | Expected Result |
 |---|---|---|
-| AT-01 | Add Notebook, enter Sample Rowan, place order | One visible confirmation, a nonempty reference, the name and Notebook × 1. Submit control disappears. |
-| AT-02 | Add Notebook. Submit first with an empty name, then with spaces. | Required-name message, input retained, one Notebook at ₹499, total ₹499, zero confirmations. |
-| AT-03 | Add Notebook and increment twice. Add Desk Organiser. Remove Notebook and decrement the remaining unit. | Notebook line and order each ₹1,497, mixed total ₹1,796, final empty cart ₹0. |
-| AT-04 | At 320px add Desk Organiser, type Sample Sky and double-click Place Order. | One reference and a visible confirmation. Receipt fits viewport. |
-| MT-01 | Refresh, leave cart empty, enter Sample Vale, click Place Order. Inspect cart, field and confirmation area. | Empty-cart guidance, ₹0, same name, no receipt. |
-| MT-02 | Refresh, add one Notebook, enter a synthetic name, rapidly double-click Place Order. Read receipt and look for a remaining submit control. | One receipt and one reference, Notebook × 1 at ₹499, completed form cannot submit again. |
+| AT-01 | Add Notebook, enter Sample Rowan and place the order. | One visible confirmation with a nonempty reference, Sample Rowan and Notebook × 1. The submit button disappears. |
+| AT-02 | Add Notebook. Submit with a blank name, then with three spaces. | Both attempts show the required-name error and preserve the entered value. One Notebook remains at ₹499, the total is ₹499 and no receipt appears. |
+| AT-03 | Add Notebook and increase to three using the product card and cart. Add Desk Organiser. Decrement Notebook once, remove its line, then decrement the remaining Desk Organiser. | Notebook line and total are ₹1,497. The mixed cart totals ₹1,796, then ₹1,297 after the decrement. Product controls reflect the quantities and return to Add when emptied. Final total is ₹0. |
+| AT-04 | At 320 × 700, add Desk Organiser, enter Sample Sky and double-click Place Order. | The success heading is visible, exactly one nonempty reference appears and the document width is 320 CSS pixels. |
 
-Inspect desktop and emulated mobile layout, including the 320px case. Capture the final browser state and distinguish human observations from browser-driven checks.
+## Manual Test Cases
+
+| ID | Steps | Expected Result |
+|---|---|---|
+| MT-01 | Leave the cart empty, enter Sample Vale and click Place Order. Inspect the message, name and total. | Checkout shows an empty-cart error, retains the name and displays ₹0. No receipt appears. |
+| MT-02 | Add one Notebook, enter a synthetic name and rapidly double-click Place Order. Inspect the receipt and submit control. | One receipt with one reference, Notebook × 1 and ₹499. The submit control disappears. |
 
 ## Exit criteria and limitations
 
-All critical and high risk cases have observed outcomes and supporting records. Record any discrepancy with environment, preconditions, reproduction, expected and actual behavior, severity, evidence and retest. Rerun affected checks after a fix. Chromium emulation does not establish physical-device, cross-browser or screen-reader compatibility.
+Record the actual result, status and evidence for each case. For a discrepancy, record the environment, steps, expected and actual behavior, severity and evidence. Repeat affected cases after a fix.
+
+Inspect the layout at 320, 390, 768, 1024 and 1440 CSS pixels. Browser viewport checks cover layout only. Physical devices, screen readers and browsers beyond Chromium and Edge are outside this test plan.

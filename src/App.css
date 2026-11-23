@@ -20,7 +20,7 @@ header {border-bottom:1px solid var(--color-border);background:var(--color-surfa
 .navbar {min-height:68px}
 .wordmark {font:600 26px Georgia,serif;letter-spacing:-1px}
 .wordmark img {width:34px}
-.breadcrumb,.section-title span,form label span,.local-note,.intro p,.product p,.empty p {color:var(--color-muted)}
+.breadcrumb,.section-title span,form label span,.intro p,.product p,.empty p {color:var(--color-muted)}
 .breadcrumb,.cart-link {font-size:14px}
 .breadcrumb span {padding:0 9px;color:#958b99}
 .cart-link {min-height:44px;font-weight:600}
@@ -56,12 +56,16 @@ button {border-radius:var(--radius-sm);transition:background var(--duration-fast
 .product-actions button,.primary {display:flex;justify-content:center;align-items:center;gap:7px;min-height:44px;font-weight:600}
 .product-actions button {border:1px solid #cfc6e0;padding:0 14px;background:#f4f1f9;color:var(--color-primary)}
 .product-actions button:hover {background:#e9e3f2}
+.product-stepper {display:inline-flex;align-items:center;border:1px solid #cfc6e0;border-radius:var(--radius-sm);background:#f4f1f9;color:var(--color-primary)}
+.product-stepper output {min-width:1.5ch;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.product-actions .product-stepper button {width:44px;padding:0;border:0;background:transparent}
+.product-actions .product-stepper button:hover {background:#e9e3f2}
 button svg {display:block}
 .panel {padding:clamp(18px,2vw,29px);box-shadow:var(--shadow-md)}
 .empty {border:1px dashed #d6d0df;background:#f8f6fa;border-radius:var(--radius-md);display:grid;justify-items:center;gap:5px;text-align:center;margin:20px 0;padding:18px 8px;animation:appear var(--duration-normal) both}
 .empty span,.seal {display:grid;place-items:center;border-radius:50%;width:40px;height:40px;background:#eae5f2;color:var(--color-primary);margin-bottom:4px}
 .empty strong {font-size:14px}
-.empty p,.local-note {font-size:12px}
+.empty p {font-size:12px}
 .total {padding:18px 0;border-block:1px solid var(--color-border);font-size:16px}
 .total output,.receipt .total>strong:last-child {font:600 27px Georgia,serif;font-variant-numeric:tabular-nums}
 form {padding-top:18px}
@@ -70,9 +74,8 @@ label span {font-size:12px;font-weight:400}
 input {display:block;width:100%;min-height:46px;background:white;border:1px solid #bcb7c1;border-radius:var(--radius-sm);padding:10px 13px;margin-top:8px;color:var(--color-text);transition:border-color var(--duration-fast),box-shadow var(--duration-fast)}
 input:focus {border-color:var(--color-primary);box-shadow:0 0 0 3px #54419322;outline:none}
 input[aria-invalid=true] {border-color:var(--color-error)}
-.primary {width:100%;color:white;background:var(--color-primary);border:none;margin:16px 0 9px;min-height:47px}
+.primary {width:100%;color:white;background:var(--color-primary);border:none;margin-top:16px;min-height:47px}
 .primary:hover {background:var(--color-primary-hover)}
-.local-note {text-align:center;line-height:1.5}
 ul {list-style:none;padding:0}
 .line,.error,.receipt {animation:appear var(--duration-normal) var(--ease-standard) both}
 .line {padding:10px 0}

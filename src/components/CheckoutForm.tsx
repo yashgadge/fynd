@@ -8,6 +8,5 @@ export function CheckoutForm({ name, error, update, submit }: {
       aria-invalid={Boolean(error)} aria-describedby={error ? 'name-error' : undefined} onChange={event => update(event.target.value)} />
     {error && <p className="error" role="alert" id="name-error">{error}</p>}
     <button className="primary" type="submit">Place Order <Icon name="arrow" /></button>
-    <p className="local-note">Orders are simulated in this browser.</p>
   </form>
 }

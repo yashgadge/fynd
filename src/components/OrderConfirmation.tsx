@@ -11,6 +11,5 @@ export function OrderConfirmation({ order }: { order: Order }) {
     <p className="reference">Order reference <code>{order.reference}</code></p>
     <ul>{order.lines.map(({ product, quantity, amount }) => <li className="between" key={product.id}><span>{product.name} × {quantity}</span><strong>{currency(amount)}</strong></li>)}</ul>
     <div className="total between"><strong>Order total</strong><strong>{currency(order.total)}</strong></div>
-    <p className="local-note">Order recorded in this browser session.</p>
   </section>
 }

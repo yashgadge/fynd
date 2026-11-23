@@ -38,7 +38,7 @@ export default function App() {
     <div className="breadcrumb">Store <span>/</span> Checkout</div><a className="cart-link" href="#summary"><Icon name="bag" />{order ? 'Receipt' : 'Cart'} <b>{count}</b></a></div></header>
     <main id="top" className="wrap"><div className="intro"><div><h1>Store Checkout</h1><p>Select your items and review your order.</p></div><img className="sketch" src="/stationery.svg" alt="" /></div>
     <div className="layout"><section aria-labelledby="products" className="catalog"><div className="section-title"><h2 id="products">Desk essentials</h2><span>2 products</span></div>
-    <div className="products">{products.map(product => <ProductCard key={product.id} product={product} quantity={cart[product.id]} onAdd={() => change(product.id, 1)} locked={Boolean(order)} />)}</div></section>
+    <div className="products">{products.map(product => <ProductCard key={product.id} product={product} quantity={cart[product.id]} onChange={delta => change(product.id, delta)} locked={Boolean(order)} />)}</div></section>
     <div id="summary">{order ? <OrderConfirmation order={order} /> : <section aria-label="Checkout summary" className="panel">
     <CartSummary lines={lines} count={count} total={total} change={change} error={attempted ? errors.cart : ''} />
     <CheckoutForm name={name} update={setName} submit={submit} error={attempted ? errors.name : ''} /></section>}</div></div>
