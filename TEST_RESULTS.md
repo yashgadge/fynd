@@ -15,7 +15,7 @@ Playwright Test 1.65.1 ran against the production preview in Chromium 159.0.8154
 
 ## Manual Test Cases
 
-Both cases passed manual testing in **Microsoft Edge on 23 November 2026**. The screenshots and recording document a separate Playwright replay against the development server in Edge 158.0.4370.33 at 1366 × 940. [Edge recording](evidence/manual/checkout.webm)
+Both manual test cases (MT-01 and MT-02) were executed in Microsoft Edge on 23 November 2026 against the development server. Both tests passed, with the actual results matching the expected behavior. The tests verified empty-cart validation, customer-name retention, successful order placement and prevention of duplicate receipts. [Edge recording](evidence/manual/checkout.webm)
 
 | ID | Expected Result | Actual Result | Status | Evidence |
 |---|---|---|---|---|
